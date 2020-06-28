@@ -29,8 +29,12 @@ export class SmsService {
   }
 
   addData(smsData: SmsData) {
-    this.dataList.sort((a: SmsData, b: SmsData) => b.id - a.id);
-    smsData.id = this.dataList[0].id + 1;
+    if(this.dataList.length) {
+      this.dataList.sort((a: SmsData, b: SmsData) => b.id - a.id);
+      smsData.id = this.dataList[0].id + 1;
+    } else {
+      smsData.id = 1;
+    }
 
     this.http.post<{message: string, data: SmsData}>(URL, smsData).subscribe((response) => {
       this.dataList.push(smsData);
