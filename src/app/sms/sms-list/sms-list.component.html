@@ -1,0 +1,95 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class="container-body" *ngIf="dataList.length > 0 && !isLoading">
+    <div class="grid-container">
+        <mat-grid-list cols="3" rowHeight="5rem">
+            <!-- start date calendar -->
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>Start Date</mat-label>
+                    <input matInput [matDatepicker]="sdp" [(ngModel)]="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="sdp"></mat-datepicker-toggle>
+                    <mat-datepicker #sdp></mat-datepicker>
+                </mat-form-field>
+            </mat-grid-tile>
+
+             <!-- end date calendar -->
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>End Date</mat-label>
+                    <input matInput [matDatepicker]="edp" [(ngModel)]="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="edp"></mat-datepicker-toggle>
+                    <mat-datepicker #edp></mat-datepicker>
+                </mat-form-field>
+            </mat-grid-tile>
+            <!-- filter button -->
+            <mat-grid-tile class="btn-grid">
+                <button mat-raised-button color="primary" (click)="filterData()">Filter</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+        
+        <!-- table -->
+        <div class="mat-elevation-z8">
+            <mat-table matSort mat-table [dataSource]="dataSource"
+                matSortActive="id" matSortDisableClear matSortDirection="asc" class="table-container">       
+                <!-- Id Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                </ng-container>
+                
+                <!-- City Column -->
+                <ng-container matColumnDef="city">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.city}} </mat-cell>
+                </ng-container>
+                
+                <!-- Start Date Column -->
+                <ng-container matColumnDef="start_date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.start_date | date}} </mat-cell>
+                </ng-container>
+                
+                <!-- End Date Column -->
+                <ng-container matColumnDef="end_date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> End Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.end_date | date}} </mat-cell>
+                </ng-container>
+        
+                <!-- Price Column -->
+                <ng-container matColumnDef="price">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+                </ng-container>
+        
+                    <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+                </ng-container>
+        
+                    <!-- Color Column -->
+                <ng-container matColumnDef="color">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Color </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> <span [ngStyle]="{color: element.color}"> {{element.color}} </span> </mat-cell>
+                </ng-container>
+
+                 <!-- Color Column -->
+                 <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> 
+                        <a mat-button color="primary" [routerLink]="['/edit', element.id]">EDIT</a>
+                        <button mat-button color="warn" (click)="onDelete(element.id)">DELETE</button>
+                    </mat-cell>
+                </ng-container>
+                
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        
+            <!-- Paginator -->
+            <mat-paginator [pageSizeOptions]="[50, 100, 200]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</div>
+
+<p class="info-text no-data" *ngIf="dataList.length === 0 && !isLoading"> No data available</p>

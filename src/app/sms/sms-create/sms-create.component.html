@@ -1,0 +1,96 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class="data-form">
+    <form (submit)="onSaveData(smsForm)" #smsForm="ngForm"  *ngIf="!isLoading">
+        <p>
+            <mat-form-field>
+                <input
+                    matInput
+                    type="text"
+                    name="city"
+                    [(ngModel)]="smsData.city"
+                    required
+                    placeholder="City"
+                    #city="ngModel">
+                <mat-error *ngIf="city.invalid">Please enter a city.</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input
+                    matInput
+                    [matDatepicker]="sdp"
+                    type="text"
+                    name="start_date"
+                    [(ngModel)]="smsData.start_date"
+                    required
+                    placeholder="Start Date"
+                    #start_date="ngModel">                
+                    <mat-datepicker-toggle matSuffix [for]="sdp"></mat-datepicker-toggle>
+                    <mat-datepicker #sdp></mat-datepicker>
+                <mat-error *ngIf="start_date.invalid">Please select start date.</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input
+                    matInput
+                    [matDatepicker]="edp"
+                    type="text"
+                    name="end_date"
+                    [(ngModel)]="smsData.end_date"
+                    required
+                    placeholder="End Date"
+                    #end_date="ngModel">                
+                    <mat-datepicker-toggle matSuffix [for]="edp"></mat-datepicker-toggle>
+                    <mat-datepicker #edp></mat-datepicker>
+                <mat-error *ngIf="end_date.invalid">Please select end date.</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input
+                    matInput
+                    type="number"
+                    name="price"
+                    min="0"
+                    [(ngModel)]="smsData.price"
+                    required
+                    placeholder="Price"
+                    #price="ngModel">
+                <mat-error *ngIf="price.invalid">Please enter a price.</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input
+                    matInput
+                    type="text"
+                    name="status"
+                    [(ngModel)]="smsData.status"
+                    required
+                    placeholder="Status"
+                    #status="ngModel">
+                <mat-error *ngIf="status.invalid">Please enter a status.</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input
+                    matInput
+                    type="color"
+                    name="color"
+                    [(ngModel)]="smsData.color"
+                    required
+                    placeholder="Color"
+                    #color="ngModel">
+            <span>{{color.value}}</span>
+                <mat-error *ngIf="color.invalid">Please select a color.</mat-error>
+            </mat-form-field>
+        </p>
+        <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!smsForm.valid">Save Data</button>
+    </form>
+</div>

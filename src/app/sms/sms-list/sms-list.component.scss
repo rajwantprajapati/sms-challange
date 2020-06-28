@@ -1,0 +1,19 @@
+.container-body {
+    display: flex;
+    justify-content: center;
+}
+
+.grid-container {
+    width: 80%;
+}
+
+.table-container {
+    width: 100%;
+    max-height: calc(100vh - 13rem);
+    overflow: auto;    
+}
+
+.no-data {
+    text-align: center;
+}
+

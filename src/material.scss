@@ -1,0 +1,12 @@
+/* override material css */
+.btn-grid figure  {
+    height: 3.5rem !important;
+}
+
+figure {
+    justify-content: start !important;
+}
+
+mat-spinner {
+    margin: auto;
+}
